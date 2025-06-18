@@ -35,25 +35,16 @@ function logout() {
   window.location.href = 'login.html';
 }
 
-// ================================
 // Авторизация
-// ================================
 function checkAuth() {
   const token = getToken();
   const page = location.pathname.split('/').pop();
 
   const publicPages = ['index.html', 'login.html'];
-
-  // Если пользователь НЕ авторизован и пытается попасть на защищённую страницу
   if (!token && !publicPages.includes(page)) {
     location.href = '/pages/login.html';
     return;
   }
-
-  // ❌ Убираем автопереход с index.html на teams.html
-  // Разрешаем быть на index.html даже с токеном
-
-  // Если пользователь авторизован и находится на login.html — редиректим в лк
   if (token && page === 'login.html') {
     location.href = '/pages/teams.html';
   }
@@ -97,9 +88,7 @@ async function handleLogin(e) {
   }
 }
 
-// ================================
 // Заполнение селектов командами
-// ================================
 async function populateTeamSelects() {
   try {
     const teams = await apiFetch('/teams');
@@ -120,9 +109,7 @@ async function populateTeamSelects() {
   }
 }
 
-// ================================
 // CRUD: Команды и Игроки
-// ================================
 let editTeamId = null;
 let editPlayerId = null;
 
@@ -208,8 +195,8 @@ async function removeTeam(id) {
                 teamElement.remove();
             }
             showToast('Команда успешно удалена');
-            await loadTeams(); // Перезагружаем список команд
-            await populateTeamSelects(); // Обновляем селекты
+            await loadTeams();
+            await populateTeamSelects();
         }
     } catch (err) {
         console.error('Ошибка при удалении команды:', err);
@@ -230,7 +217,6 @@ async function openEditPlayer(id) {
         const form = document.getElementById('playerForm');
         if (!form) throw new Error('Форма не найдена');
 
-        // Заполняем форму данными игрока
         form.name.value = player.name || '';
         form.team_id.value = player.team_id || '';
         form.number.value = player.number || '';
@@ -259,7 +245,7 @@ async function removePlayer(id) {
                 playerElement.remove();
             }
             showToast('Игрок успешно удален');
-            await loadPlayers(); // Перезагружаем список игроков
+            await loadPlayers();
         }
     } catch (err) {
         console.error('Ошибка при удалении игрока:', err);
@@ -284,10 +270,10 @@ async function submitTeamForm(e) {
 
 async function submitPlayerForm(e) {
     e.preventDefault();
-    e.stopPropagation(); // Добавляем это для предотвращения всплытия события
+    e.stopPropagation();
     const form = e.target;
     
-    if (form.dataset.submitting) return; // Предотвращаем повторную отправку
+    if (form.dataset.submitting) return;
     form.dataset.submitting = 'true';
     
     try {
@@ -318,13 +304,11 @@ async function submitPlayerForm(e) {
         console.error('Ошибка при сохранении игрока:', err);
         showToast('Ошибка при сохранении игрока', true);
     } finally {
-        delete form.dataset.submitting; // Очищаем флаг отправки
+        delete form.dataset.submitting;
     }
 }
 
-// ================================
 // CRUD: Матчи и Симуляция
-// ================================
 const simulators = {};
 
 async function loadMatches() {
@@ -450,7 +434,6 @@ class MatchSimulator {
   }
 }
 
-// Функция для отображения уведомлений
 function showToast(message, isError = false) {
     const existingToast = document.querySelector('.toast');
     if (existingToast) {
@@ -486,9 +469,7 @@ setInterval(() => {
   });
 }, 1000);
 
-// ================================
 // Страница статистики
-// ================================
 async function loadStats() {
     const container = document.getElementById('stats-table');
     if (!container) return;

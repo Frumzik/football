@@ -13,17 +13,13 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Настраиваем статические пути для корневой директории проекта
 app.use(express.static(path.join(__dirname, '..')));
 
-// Добавляем поддержку сессий
 app.use(session({
     secret: 'your-secret-key',
     resave: false,
     saveUninitialized: false
 }));
-
-// Middleware для проверки авторизации
 const checkAuth = (req, res, next) => {
     if (!req.session.user) {
         return res.redirect('/pages/login.html');
@@ -31,12 +27,10 @@ const checkAuth = (req, res, next) => {
     next();
 };
 
-// Обработка всех HTML-запросов
 app.get('*.html', (req, res) => {
     res.sendFile(path.join(__dirname, '..', req.path));
 });
 
-// Auth routes
 app.post('/auth/index', async (req, res) => {
     const { username, password } = req.body;
     try {
@@ -55,7 +49,6 @@ app.post('/auth/index', async (req, res) => {
     }
 });
 
-// Обработка регистрации
 app.post('/auth/register', async (req, res) => {
     const { username, password } = req.body;
     try {
@@ -69,8 +62,6 @@ app.post('/auth/register', async (req, res) => {
             if (user) {
                 return res.status(400).json({ success: false, message: 'Пользователь уже существует' });
             }
-            
-            // Создаем нового пользователя
             db.run('INSERT INTO users (username, password) VALUES (?, ?)',
                 [username, hashedPassword],
                 function(err) {
@@ -85,8 +76,6 @@ app.post('/auth/register', async (req, res) => {
         res.status(500).json({ success: false, message: error.message });
     }
 });
-
-// Функция получения userId из токена
 function getUserIdFromToken(authHeader) {
     if (!authHeader) return null;
     const token = authHeader.split(' ')[1];
@@ -98,7 +87,6 @@ function getUserIdFromToken(authHeader) {
     }
 }
 
-// Обновляем логин, чтобы возвращать userId
 app.post('/auth/login', (req, res) => {
     const { username, password } = req.body;
     db.get('SELECT * FROM users WHERE username = ?', [username], async (err, user) => {
@@ -119,7 +107,6 @@ app.post('/auth/login', (req, res) => {
     });
 });
 
-// Обновляем получение команд с фильтрацией по пользователю
 app.get('/teams', (req, res) => {
     const userId = getUserIdFromToken(req.headers.authorization);
     if (!userId) {
@@ -135,7 +122,6 @@ app.get('/teams', (req, res) => {
     });
 });
 
-// Обновляем создание команды
 app.post('/teams', (req, res) => {
     const userId = getUserIdFromToken(req.headers.authorization);
     if (!userId) {
@@ -144,7 +130,6 @@ app.post('/teams', (req, res) => {
 
     const { name, coach } = req.body;
     
-    // Добавляем отладочные логи
     console.log('Creating team:', { name, coach, userId });
     
     db.run(
@@ -167,7 +152,6 @@ app.post('/teams', (req, res) => {
     );
 });
 
-// Обновление команды
 app.put('/teams/:id', (req, res) => {
     const userId = getUserIdFromToken(req.headers.authorization);
     if (!userId) return res.status(401).json({ message: 'Unauthorized' });
@@ -187,7 +171,6 @@ app.put('/teams/:id', (req, res) => {
     );
 });
 
-// Удаление команды
 app.delete('/teams/:id', (req, res) => {
     const userId = getUserIdFromToken(req.headers.authorization);
     if (!userId) return res.status(401).json({ message: 'Unauthorized' });
@@ -206,7 +189,6 @@ app.delete('/teams/:id', (req, res) => {
     );
 });
 
-// Обновленный эндпоинт получения игроков
 app.get('/players', (req, res) => {
     const userId = getUserIdFromToken(req.headers.authorization);
     if (!userId) {
@@ -227,7 +209,6 @@ app.get('/players', (req, res) => {
     });
 });
 
-// Обновленный эндпоинт создания игрока
 app.post('/players', (req, res) => {
     const userId = getUserIdFromToken(req.headers.authorization);
     if (!userId) {
@@ -255,7 +236,6 @@ app.post('/players', (req, res) => {
     });
 });
 
-// Эндпоинты для матчей
 app.get('/matches', (req, res) => {
   const userId = getUserIdFromToken(req.headers.authorization);
   db.all(`
@@ -272,7 +252,6 @@ app.get('/matches', (req, res) => {
     });
 });
 
-// Обновляем эндпоинт для создания матчей
 app.post('/matches', (req, res) => {
     const userId = getUserIdFromToken(req.headers.authorization);
     if (!userId) {
@@ -300,7 +279,6 @@ app.post('/matches', (req, res) => {
     );
 });
 
-// Endpoint для обновления результата матча
 app.put('/matches/:id', (req, res) => {
     const userId = getUserIdFromToken(req.headers.authorization);
     const { score_team1, score_team2, status } = req.body;
@@ -318,7 +296,6 @@ app.put('/matches/:id', (req, res) => {
     );
 });
 
-// Обновленный endpoint для статистики
 app.get('/stats', (req, res) => {
     const userId = getUserIdFromToken(req.headers.authorization);
     if (!userId) return res.status(401).json({ message: 'Unauthorized' });
@@ -353,7 +330,6 @@ app.get('/stats', (req, res) => {
     });
 });
 
-// Добавляем endpoint для удаления матча
 app.delete('/matches/:id', (req, res) => {
     const userId = getUserIdFromToken(req.headers.authorization);
     if (!userId) return res.status(401).json({ message: 'Unauthorized' });
@@ -370,7 +346,6 @@ app.delete('/matches/:id', (req, res) => {
     );
 });
 
-// Получение одной команды
 app.get('/teams/:id', (req, res) => {
     const userId = getUserIdFromToken(req.headers.authorization);
     if (!userId) return res.status(401).json({ message: 'Unauthorized' });
@@ -385,7 +360,6 @@ app.get('/teams/:id', (req, res) => {
     );
 });
 
-// Получение одной игрока
 app.get('/players/:id', (req, res) => {
     const userId = getUserIdFromToken(req.headers.authorization);
     if (!userId) return res.status(401).json({ message: 'Unauthorized' });
@@ -404,7 +378,6 @@ app.get('/players/:id', (req, res) => {
     );
 });
 
-// Обновление игрока
 app.put('/players/:id', (req, res) => {
     const userId = getUserIdFromToken(req.headers.authorization);
     if (!userId) return res.status(401).json({ message: 'Unauthorized' });
@@ -424,7 +397,6 @@ app.put('/players/:id', (req, res) => {
     );
 });
 
-// Удаление игрока
 app.delete('/players/:id', (req, res) => {
     const userId = getUserIdFromToken(req.headers.authorization);
     if (!userId) return res.status(401).json({ message: 'Unauthorized' });
