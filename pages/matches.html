@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>TeamTrack — Матчи</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <header>
+    <div class="logo">TeamTrack</div>
+    <nav>
+      <a href="teams.html">Команды</a>
+      <a href="players.html">Игроки</a>
+      <a href="matches.html" class="active">Матчи</a>
+      <a href="stats.html">Статистика</a>
+      <button id="logout-btn" class="logout-btn" onclick="logout()">Выйти из аккаунта</button>
+    </nav>
+  </header>
+
+  <main>
+    <div class="page-header">
+      <h2>Матчи</h2>
+      <button id="addMatchBtn">+ Добавить матч</button>
+    </div>
+    <div id="matches-list" class="matches-container">
+    </div>
+  </main>
+
+  <div id="matchModal" class="modal-overlay">
+    <div class="modal">
+      <span class="close" onclick="closeModal('matchModal')">&times;</span>
+      <h3>Новый матч</h3>
+      <form id="matchForm">
+        <div class="form-group">
+          <label for="match-team1">Первая команда</label>
+          <select id="match-team1" name="team1_id" required></select>
+        </div>
+        <div class="form-group">
+          <label for="match-team2">Вторая команда</label>
+          <select id="match-team2" name="team2_id" required></select>
+        </div>
+        <div class="form-group">
+          <label for="match-date">Дата и время начала</label>
+          <input type="datetime-local" id="match-date" name="date" required>
+        </div>
+        <div class="modal-actions">
+          <button type="button" onclick="closeModal('matchModal')" class="btn-secondary">Отмена</button>
+          <button type="submit">Создать матч</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="../js/script.js"></script>
+</body>
+</html>

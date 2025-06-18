@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>TeamTrack — Статистика</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <header>
+        <div class="logo">TeamTrack</div>
+        <nav>
+            <a href="teams.html">Команды</a>
+            <a href="players.html">Игроки</a>
+            <a href="matches.html">Матчи</a>
+            <a href="stats.html" class="active">Статистика</a>
+            <button id="logout-btn" class="logout-btn" onclick="logout()">Выйти из аккаунта</button>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Статистика команд</h2>
+        <div id="stats-table" class="stats-table-container"></div>
+    </main>
+    <script src="../js/script.js"></script>
+</body>
+</html>

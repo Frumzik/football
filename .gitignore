@@ -1,0 +1,22 @@
+# Dependencies
+/node_modules
+/package-lock.json
+
+# Environment
+.env
+
+# IDE files
+.vscode/
+.idea/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Operating System Files
+.DS_Store
+Thumbs.db
+
+# Build outputs
+/dist
+/build

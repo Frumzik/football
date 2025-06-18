@@ -1,0 +1,491 @@
+/* Сброс */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    line-height: 1.6;
+    background-color: #f8f9fa;
+    color: var(--color-brown);
+}
+
+:root {
+    --color-green: #8FA380;
+    --color-brown: #634D38;
+    --color-beige: #EEE1B4;
+    --color-white: #FFFFFF;
+    --color-black: #000000;
+    --shadow-sm: 0 2px 4px rgba(0,0,0,0.1);
+    --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+    --shadow-lg: 0 10px 15px rgba(0,0,0,0.1);
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --transition: all 0.3s ease;
+}
+
+/* Header styles */
+header {
+    background: var(--color-white);
+    box-shadow: var(--shadow-sm);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+.logo{
+    text-align: center;
+    font-size: 40px;
+}
+nav{
+    justify-content: center;
+}
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-links {
+    display: flex;
+    gap: 24px;
+}
+
+.nav-links a {
+    color: var(--color-brown);
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: var(--radius-sm);
+    transition: var(--transition);
+}
+
+.nav-links a:hover {
+    background: var(--color-beige);
+    color: var(--color-brown);
+}
+
+/* Основные стили */
+main {
+    padding: 1rem;
+}
+.hero {
+    text-align: center;
+    padding: 2rem 0;
+}
+.hero h1 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1rem;
+}
+
+/* Карточки */
+.card {
+    background: var(--color-white);
+    border-radius: var(--radius-md);
+    padding: 24px;
+    margin-bottom: 16px;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+    
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+/* Стили для форм авторизации */
+.auth-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: linear-gradient(135deg, var(--color-beige) 0%, var(--color-white) 100%);
+}
+
+.auth-box {
+    background: var(--color-white);
+    padding: 40px;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    width: 100%;
+    max-width: 400px;
+}
+
+.auth-tabs {
+    display: flex;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #eee;
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.tab-btn.active {
+    border-bottom: 2px solid #007bff;
+    color: #007bff;
+}
+
+.form-container {
+    display: none;
+}
+
+.form-container.active {
+    display: block;
+}
+
+/* Стили для матчей */
+.matches-container {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.match-card {
+    background: var(--color-white);
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.match-live {
+    border-left: 4px solid #ff4444;
+    animation: pulse 2s infinite;
+}
+
+.match-finished {
+    border-left: 4px solid var(--color-green);
+    opacity: 0.9;
+}
+
+.match-upcoming {
+    border-left: 4px solid var(--color-brown);
+}
+
+.match-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.match-timer {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: var(--color-brown);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+.match-teams {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: var(--color-brown);
+}
+
+.match-score {
+    font-size: 2em;
+    font-weight: bold;
+    text-align: center;
+    margin: 15px 0;
+    color: var(--color-brown);
+}
+
+.match-status {
+    text-align: center;
+    margin-right: 100px;
+    color: var(--color-brown);
+    font-weight: 500;
+}
+.close{
+    font-size: 40px;
+    cursor: pointer;
+}
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(255, 68, 68, 0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(255, 68, 68, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 68, 68, 0); }
+}
+
+/* Стили для модальных окон */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(4px);
+}
+
+.modal {
+    background: var(--color-white);
+    padding: 32px;
+    border-radius: var(--radius-lg);
+    width: 90%;
+    max-width: 500px;
+    box-shadow: var(--shadow-lg);
+}
+
+/* Стили для форм в модальных окнах */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: var(--color-brown);
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #e0e0e0;
+    border-radius: var(--radius-md);
+    font-size: 16px;
+    transition: var(--transition);
+}
+
+.form-group input:focus {
+    border-color: var(--color-green);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(143, 163, 128, 0.2);
+}
+
+/* Кнопки */
+button {
+    background: var(--color-brown);
+    color: var(--color-white);
+    border: none;
+    padding: 12px 24px;
+    border-radius: var(--radius-md);
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+button:hover {
+    background: var(--color-green);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+}
+
+.btn-secondary {
+    background-color: var(--color-beige);
+    color: var(--color-brown);
+}
+
+.btn-secondary:hover {
+    background-color: #e6d9ac;
+}
+
+.stats-section {
+    margin: 20px 0;
+}
+
+.stat-item {
+    background: #f5f5f5;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 4px;
+}
+
+.stats-table-container {
+    padding: 20px;
+    overflow-x: auto;
+}
+
+.stats-table-container table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--color-white);
+    box-shadow: var(--shadow-sm);
+    border-radius: var(--radius-md);
+}
+
+.stats-table-container th,
+.stats-table-container td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid var(--color-beige);
+}
+
+.stats-table-container th {
+    background-color: var(--color-green);
+    color: var(--color-white);
+    font-weight: bold;
+}
+
+.stats-table-container tr:hover {
+    background-color: var(--color-beige);
+}
+
+.stats-table-container tr:last-child td {
+    border-bottom: none;
+}
+
+nav {
+    display: flex;
+    padding: 15px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+nav a {
+    text-decoration: none;
+    color: #333;
+    padding: 8px 16px;
+    margin: 0 5px;
+}
+
+nav a:hover {
+    background: #f0f0f0;
+    border-radius: 4px;
+}
+
+/* Анимации */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.modal-overlay.active {
+    animation: fadeIn 0.3s ease;
+}
+
+/* Стили для уведомлений */
+.toast {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 15px 25px;
+    background: var(--color-green);
+    color: white;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    z-index: 1000;
+    animation: slideIn 0.3s, fadeOut 0.5s 2s forwards;
+}
+
+.toast.error {
+    background: #dc3545;
+}
+
+@keyframes slideIn {
+    from { transform: translateX(100%); }
+    to { transform: translateX(0); }
+}
+
+@keyframes fadeOut {
+    to { opacity: 0; }
+}
+
+/* Адаптив */
+@media (max-width: 768px) {
+
+    header .burger {
+        display: block;
+    }
+
+    .nav-links {
+        gap: 12px;
+    }
+
+    .modal {
+        padding: 20px;
+        width: 95%;
+    }
+
+    .card {
+        padding: 16px;
+    }
+}
+
+.card-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.btn-edit {
+    background-color: var(--color-brown);
+}
+
+.btn-delete {
+    background-color: #dc3545;
+}
+
+.btn-edit:hover {
+    background-color: var(--color-green);
+}
+
+.btn-delete:hover {
+    background-color: #c82333;
+}
+#match-team1, #match-team2, #player-team {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid var(--color-beige);
+    border-radius: var(--radius-md);
+    background-color: var(--color-white);
+    color: var(--color-brown);
+    font-size: 16px;
+    cursor: pointer;
+    transition: var(--transition);
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23634D38' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 16px;
+    padding-right: 40px;
+}
+
+#match-team1:hover, #match-team2:hover, #player-team:hover {
+    border-color: var(--color-green);
+    box-shadow: 0 0 0 3px rgba(143, 163, 128, 0.2);
+}
+
+#match-team1:focus, #match-team2:focus, #player-team:focus {
+    border-color: var(--color-green);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(143, 163, 128, 0.3);
+}
+
+#match-team1 option, #match-team2 option, #player-team option {
+    padding: 12px;
+    font-size: 16px;
+    background-color: var(--color-white);
+    color: var(--color-brown);
+}

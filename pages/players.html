@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>TeamTrack — Игроки</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <header>
+    <div class="logo">TeamTrack</div>
+    <nav>
+      <a href="teams.html">Команды</a>
+      <a href="players.html" class="active">Игроки</a>
+      <a href="matches.html">Матчи</a>
+      <a href="stats.html">Статистика</a>
+      <button id="logout-btn" class="logout-btn" onclick="logout()">Выйти из аккаунта</button>
+    </nav>
+  </header>
+
+  <main>
+    <div class="page-header">
+      <h2>Игроки</h2>
+      <button id="addPlayerBtn">+ Добавить игрока</button>
+    </div>
+    <div id="players-list" class="card-grid">
+    </div>
+  </main>
+
+  <div id="playerModal" class="modal-overlay">
+    <div class="modal">
+      <span class="close" onclick="closeModal('playerModal')">&times;</span>
+      <h3>Игрок</h3>
+      <form id="playerForm" onsubmit="submitPlayerForm(event)">
+        <div class="form-group">
+          <label for="player-name">Имя</label>
+          <input id="player-name" type="text" name="name" required>
+        </div>
+        <div class="form-group">
+          <label for="player-team">Команда</label>
+          <select id="player-team" name="team_id" required></select>
+        </div>
+        <div class="form-group">
+          <label for="player-number">Номер</label>
+          <input id="player-number" type="number" name="number" required>
+        </div>
+        <div class="form-group">
+          <label for="player-position">Позиция</label>
+          <input id="player-position" type="text" name="position" required>
+        </div>
+        <div class="modal-actions">
+          <button type="button" onclick="closeModal('playerModal')" class="btn-secondary">Отмена</button>
+          <button type="submit">Сохранить</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="../js/script.js"></script>
+</body>
+</html>

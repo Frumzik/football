@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>TeamTrack — Команды</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <header>
+    <div class="logo">TeamTrack</div>
+    <nav>
+      <a href="teams.html" class="active">Команды</a>
+      <a href="players.html">Игроки</a>
+      <a href="matches.html">Матчи</a>
+      <a href="stats.html">Статистика</a>
+      <button id="logout-btn" class="logout-btn" onclick="logout()">Выйти из аккаунта</button>
+    </nav>
+  </header>
+
+  <main>
+    <div class="page-header">
+      <h2>Команды</h2>
+      <button id="addTeamBtn">+ Добавить команду</button>
+    </div>
+    <div id="teams-list" class="card-grid"></div>
+  </main>
+
+  <!-- Модалка Добавить/Редактировать Команду -->
+  <div id="teamModal" class="modal-overlay" style="display:none;">
+    <div class="modal">
+      <span class="close" onclick="closeModal('teamModal')">&times;</span>
+      <h3>Команда</h3>
+      <form id="teamForm">
+        <div class="form-group">
+          <label for="team-name">Название</label>
+          <input id="team-name" type="text" name="name" required>
+        </div>
+        <div class="form-group">
+          <label for="team-coach">Тренер</label>
+          <input id="team-coach" type="text" name="coach">
+        </div>
+        <button type="submit">Сохранить</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="../js/script.js"></script>
+</body>
+</html>
